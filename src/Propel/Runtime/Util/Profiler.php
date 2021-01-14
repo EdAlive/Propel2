@@ -235,6 +235,10 @@ class Profiler
     public function getProfileBetween($startSnapshot, $endSnapshot)
     {
         $profile = '';
+        
+        if (!isset($endSnapshot['microtime'], $startSnapshot['microtime'])){
+            return $profile;
+        }
 
         if ($this->slowTreshold) {
             if ($endSnapshot['microtime'] - $startSnapshot['microtime'] >= $this->slowTreshold) {
