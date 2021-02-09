@@ -27,6 +27,13 @@ use Propel\Runtime\Util\PropelDateTime;
  */
 abstract class PdoAdapter
 {
+    protected $resolver = null;
+    
+    public function setResover(callable $resolver)
+    {
+        $this->resolver = $resolver;
+    }
+    
     /**
      * Build database connection
      *
@@ -43,6 +50,10 @@ abstract class PdoAdapter
 
         if (!isset($conparams['dsn'])) {
             throw new InvalidArgumentException('No dsn specified in your connection parameters');
+        }
+        
+        if(!is_null($this->resolver)){
+            return call_user_func($this->resolver, $conparams);
         }
 
         $dsn = $conparams['dsn'];
