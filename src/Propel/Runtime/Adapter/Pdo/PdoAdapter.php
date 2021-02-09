@@ -29,7 +29,7 @@ abstract class PdoAdapter
 {
     protected $resolver = null;
     
-    public function setResover(callable $resolver)
+    public function setResolver(callable $resolver)
     {
         $this->resolver = $resolver;
     }
